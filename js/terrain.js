@@ -1,6 +1,7 @@
 	var canvas;
     var contexte;
-	var nbdecor = 6;
+	var nbdecor = 5;
+	var nbarmes = 4;
 	var newX;
 	var newY;
 	var joueur = 10;
@@ -32,6 +33,15 @@
 			};
 		};
 		
+	// Définitions vide du tableau des armes
+	var armes = new Array();
+		for (i=0; i<10; i++) {
+			armes[i] = new Array();
+			for (j=0; j<10;j++) {
+				armes[i][j] = 0;
+			};
+		};
+		
 	// Ajout de facon aleatoire sur le plateau du décor
 	for (i=0; i<nbdecor; i++) {
 		do {
@@ -42,16 +52,54 @@
 		decor[X][Y] = aleatoire(1,3);
 	};
 	
+	// Ajout de facon aleatoire sur le plateau des armes
+	for (i=0; i<nbarmes; i++) {
+		do {
+			var X = aleatoire (0,10);
+			var Y = aleatoire (0,10);
+		} while (decor[X][Y] != 0);
+		armes[X][Y] = "arme" + i;
+	};
+	
 	// Ajout de facon aleatoire des persos sur le plateau
 	var nb = 10;
 	for (h=0; h<2; h++) {
 		do {
 			var X = aleatoire (0,10);
 			var Y = aleatoire (0,10);
-		} while (decor[X][Y] != 0);
+			test_proximite(X,Y);
+		} while (decor[X][Y] != 0 && test_proximite() === true);
 		decor[X][Y] = nb+h;
 		generation_chemin();
 	};
+	
+	function test_proximite(X,Y) {
+		if (X+1 <10 ) {
+			if (decor[X+1][Y] != 10) {
+				test1 = true;
+			} else { test1 = false;}
+		} else { test1 = true;}
+		if (X-1 >=0 ) {
+			if (decor[X-1][Y] != 10) {
+				test2 = true;
+			} else { test2 = false;}
+		} else { test2 = true;}
+		if (Y+1 <10 ) {
+			if (decor[X][Y+1] != 10) {
+				test3 = true;
+			} else { test3 = false;}
+		} else { test3 = true;}
+		if (Y-1 >=0 ) {
+			if (decor[X][Y-1] != 10) {
+				test4 = true;
+			} else { test4 = false;}
+		} else { test4 = true;}
+		if (test1 === true && test2 === true && test3 === true && test4 === true) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 	function maj_chemin() {
 		for (i=0; i<10;i++) {
@@ -136,23 +184,6 @@
 		}
 	}
 
-	   // Définitions des armes
-	var armes = new Array();
-		for (i=0; i<10; i++) {
-			armes[i] = new Array();
-			for (j=0; j<10;j++) {
-				armes[i][j] = 0;
-			};
-		};
-		
-/*     // Position initiale des objectifs sur le plateau de jeu (début à 0)
-    objectifs_positions = Array(
-        [4, 9],
-        [3, 2],
-        [11, 9]
-    ); */
-
-
     // Images
     var sol_images = new Array();
     var persos_images = new Array();
@@ -200,14 +231,11 @@
                 }
 				if (decor[i][j] == 20) {																																															//test d'affichage d'une arme en surbrillance
 					contexte.drawImage( decor_images[2] , (i-j)*H/2+X , (i+j)*42/2+Y , H , W);
-					contexte.drawImage( decor_images[0] , (i-j)*H/2+X+Poffx , (i+j)*42/2+Y+Poffy , H , 64 );
+					contexte.drawImage( decor_images[0] , (i-j)*H/2+X+Doffx , (i+j)*42/2+Y+Doffy , H , 64 );
                 }	
-				if (joueur ==10 && decor[i][j] == 12) {																																								// Si on est le Joueur1 et qu'on peut se deplacer sur cette case alors on le dessine en surbrillance grise
+				if (decor[i][j] == 12) {																																															// Si on peut se deplacer sur cette case alors on le dessine en surbrillance grise
                     contexte.drawImage( decor_images[4] , (i-j)*H/2+X , (i+j)*42/2+Y , H , W);
-                }	
-				if (joueur ==11 && decor[i][j] == 12) {																																								// Si on est le Joueur2 et qu'on peut se deplacer sur cette case alors on le dessine en surbrillance grise
-                    contexte.drawImage( decor_images[4] , (i-j)*H/2+X , (i+j)*42/2+Y , H , W);
-                }	
+                }
 				if (decor[i][j] == 14 && joueur == 10 ) {																																								// Si on est le Joueur1 et qu'on peut se deplacer sur cette case et que la souris est dessus alors on le dessine en surbrillance bleu
                     contexte.drawImage( decor_images[3] , (i-j)*H/2+X , (i+j)*42/2+Y , H , W);
                 }	
@@ -220,6 +248,12 @@
 				if (decor[i][j] == 11) {																																															// Si il y a le Joueur2 sur cette case alors on le dessine
                     contexte.drawImage( persos_images[1] , (i-j)*H/2+X+0 , (i+j)*42/2+Y-60 , H , 93 );
                 }
+				for (z=0;z<nbarmes;z++){																																													// test pour trouver n'importe quel armes
+					if (armes[i][j] == "arme" + z) {																																											// Si une arme est placée sur cette case alors on le dessine
+                   armes_numero = armes[i][j].match(/\d+/g);
+				   contexte.drawImage( armes_images[armes_numero] , (i-j)*H/2+X+Doffx , (i+j)*42/2+Y+Doffy , H , 64 );
+					}
+				}
             }
         }
     };
@@ -259,7 +293,20 @@
             decor_images[i].src = decor_filenames[i];
         }
 
+        // Définition des images représentant les armes
+        var armes_filenames = Array(
+			"css/armes/kaboum.png",
+			"css/armes/kaboum.png",
+			"css/armes/kaboum.png",
+			"css/armes/kaboum.png"
+			);
 
+        // Chargement effectif des images
+        for (var i=0;i<armes_filenames.length;i++) {
+            armes_images[i] = new Image();
+            armes_images[i].src = armes_filenames[i];
+        }
+		
         // Définition des images représentant les personnage à bouger
         var persos_filenames = Array("css/perso/papanoel_01.png", "css/perso/papanoel_02.png");
 
@@ -307,7 +354,7 @@
 			if (positionX >=0 && positionX <= 9 && positionY >=0 && positionY <=9) {																									// si la souris ne sort pas du plateau
 				for (i=0;i<10;i++) {
 					for (j=0;j<10;j++) {
-						if (decor[i][j] == 14) {																																													// tout les case qui etait en surbrillance rouge 
+						if (decor[i][j] == 14) {																																													// toute les case qui etait en surbrillance rouge/bleu
 								decor[i][j] = 12;																																														//redeviennent des chemins classiques (gris)
 						}
 					}
@@ -342,10 +389,17 @@
 			} else {
 				joueur = 10;
 			}
+			interaction_armes();
 			maj_chemin();																																																			// on genere les chemins possible du nouveau joueur
 			dessiner();																																																				// et on l'affiche
 		} else {
 			alert ("tu n'as pas le droit d'aller ici");																																									// la case selectionnée ne fait pas partie du chemin possible
+		}
+	}
+	
+	function interaction_armes() {
+		if  (armes[newX][newY] != 0) {
+			alert ("il y a une arme");
 		}
 	}
 	
