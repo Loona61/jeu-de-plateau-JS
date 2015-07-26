@@ -3,7 +3,7 @@
 	var contexte = canvas.getContext("2d");
 
 //nombre de décors a afficher sur la map
-	var nbdecor = 5;
+	var nbdecor =5;
 
 //nombre d'armes a afficher sur la map
 	var nbarmes = 4;
@@ -30,16 +30,16 @@ var joueur = [
 ];
 	
 // Largeur et hauteur d'un sol
-	var H = 80;
-	var W = 54;
+	var H = 120;
+	var W = 81;
 
 // Point de départ du plateau
-	var PosX = 360;
-	var PosY = 100;
+	var PosX = 540;
+	var PosY = 150;
 
 // Décalage entre le décor et la tuile
 	var Doffx = 0;
-	var Doffy = -30;
+	var Doffy = -45;
 
 
 // Images
@@ -113,11 +113,11 @@ var joueur = [
 
         // Définition des images représentant les armes
         var armes_filenames = Array(
-			"css/armes/kaboum.png",
-			"css/armes/armes1.png",
-			"css/armes/armes1.png",
-			"css/armes/kaboum.png",
-			"css/armes/mains-nues.png"
+			"css/armes/arme01.png",
+			"css/armes/arme02.png",
+			"css/armes/arme03.png",
+			"css/armes/arme04.png",
+			"css/armes/arme05.png"
 			);
 
         // Chargement effectif des images
@@ -127,7 +127,7 @@ var joueur = [
         }
 		
         // Définition des images représentant les personnage à bouger
-        var persos_filenames = Array("css/perso/papanoel_01.png", "css/perso/papanoel_02.png");
+        var persos_filenames = Array("css/perso/perso11.png", "css/perso/perso22.png");
 
         // Chargement effectif des images
         for (var i=0;i<persos_filenames.length;i++) {

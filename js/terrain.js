@@ -135,11 +135,11 @@
 
 	
     function dessiner() {																																																		// on dessine ou redessine tout le plateau
-        contexte.clearRect(0, 0, 900, 600)																																											// on nettoie complete le canvas
+        contexte.clearRect(0, 0, 1200, 900)																																											// on nettoie complete le canvas
 
         for (i=0;i<plateau.length;i++) {
             for (j=0;j<plateau[i].length;j++) {
-                contexte.drawImage( sol_images[plateau[i][j]] , (i-j)*H/2+PosX , (i+j)*42/2+PosY , H , W  );																				// on dessine tout le sol du plateau de jeu
+                contexte.drawImage( sol_images[plateau[i][j]] , (i-j)*H/2+PosX , (i+j)*63/2+PosY , H , W  );																				// on dessine tout le sol du plateau de jeu
             }
         }
 
@@ -147,27 +147,27 @@
         for (i=0;i<decor.length;i++) {
             for (j=0;j<decor[i].length;j++) {
                 if (decor[i][j] == 1 || decor[i][j] == 2) {																																									// Si un décor est placé sur cette case alors on le dessine
-                    contexte.drawImage( decor_images[decor[i][j]-1] , (i-j)*H/2+PosX+Doffx , (i+j)*42/2+PosY+Doffy , H , 64 );
+                    contexte.drawImage( decor_images[decor[i][j]-1] , (i-j)*H/2+PosX+Doffx , (i+j)*63/2+PosY+Doffy , H , 96 );
                 }
 				if (decor[i][j] == 12) {																																															// Si on peut se deplacer sur cette case alors on le dessine en surbrillance grise
-                    contexte.drawImage( decor_images[4] , (i-j)*H/2+PosX , (i+j)*42/2+PosY , H , W);
+                    contexte.drawImage( decor_images[4] , (i-j)*H/2+PosX , (i+j)*63/2+PosY , H , W);
                 }
-				if (decor[i][j] == 14 && joueur_actif == 10 ) {																																								// Si on est le Joueur1 et qu'on peut se deplacer sur cette case et que la souris est dessus alors on le dessine en surbrillance bleu
-                    contexte.drawImage( decor_images[2] , (i-j)*H/2+PosX , (i+j)*42/2+PosY , H , W);
+				if (decor[i][j] == 14 && joueur_actif == 10 ) {																																					// Si on est le Joueur1 et qu'on peut se deplacer sur cette case et que la souris est dessus alors on le dessine en surbrillance bleu
+                    contexte.drawImage( decor_images[2] , (i-j)*H/2+PosX , (i+j)*63/2+PosY , H , W);
                 }	
-				if (decor[i][j] == 14 && joueur_actif == 11) {																																								// Si on est le Joueur2 et qu'on peut se deplacer sur cette case et que la souris est dessus alors on le dessine en surbrillance rouge
-					contexte.drawImage( decor_images[3] , (i-j)*H/2+PosX , (i+j)*42/2+PosY , H , W);
+				if (decor[i][j] == 14 && joueur_actif == 11) {																																					// Si on est le Joueur2 et qu'on peut se deplacer sur cette case et que la souris est dessus alors on le dessine en surbrillance rouge
+					contexte.drawImage( decor_images[3] , (i-j)*H/2+PosX , (i+j)*63/2+PosY , H , W);
 				}
 				if (decor[i][j] == 10) {																																															// Si il y a le Joueur1 sur cette case alors on le dessine
-                    contexte.drawImage( persos_images[1] , (i-j)*H/2+PosX+0 , (i+j)*42/2+PosY-60 , H , 93 );
+                    contexte.drawImage( persos_images[1] , (i-j)*H/2+PosX+0 , (i+j)*63/2+PosY-90 , H , 139.5 );
                 }
 				if (decor[i][j] == 11) {																																															// Si il y a le Joueur2 sur cette case alors on le dessine
-                    contexte.drawImage( persos_images[0] , (i-j)*H/2+PosX+0 , (i+j)*42/2+PosY-60 , H , 93 );
+                    contexte.drawImage( persos_images[0] , (i-j)*H/2+PosX+0 , (i+j)*63/2+PosY-90 , H , 139.5 );
                 }
-				for (z=0;z<armes_images.length;z++){																																													// test pour trouver n'importe quel armes
+				for (z=0;z<armes_images.length;z++){																																							// test pour trouver n'importe quel armes
 					if (armes[i][j] == "arme" + z  && (decor[i][j] == 0 || decor[i][j] == 12 || decor[i][j] == 14)) {																		// Si une arme est placée sur cette case alors on le dessine sauf si il y a un perso dessus
                    armes_numero = armes[i][j].match(/\d+/g);
-				   contexte.drawImage( armes_images[armes_numero] , (i-j)*H/2+PosX+Doffx , (i+j)*42/2+PosY+Doffy , H , 64 );
+				   contexte.drawImage( armes_images[armes_numero] , (i-j)*H/2+PosX+Doffx , (i+j)*63/2+PosY+Doffy , H , 96 );
 					}
 				}
             }
@@ -177,8 +177,8 @@
 		canvas.addEventListener('mousemove', function(evt) {																																		//on declenche cette fonction a chaque mouvement de la souris
 			var mousePos = getMousePos(canvas, evt);																																					// on récupere sa position
 			var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;																											// A SUPPRIMER AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-			positionX = Math.floor((mousePos.y - PosY) / 44 + ((mousePos.x -PosX) / 80));																									// on converti la position X de la souris en case de mon tableau
-			positionY = Math.floor((mousePos.y - 70) / 42 - ((mousePos.x - 350) / 70));																								// on converti la position Y de la souris en case de mon tableau
+			positionX = Math.floor((mousePos.y - PosY) / 66 + ((mousePos.x -PosX) / 125));																									// on converti la position X de la souris en case de mon tableau
+			positionY = Math.floor((mousePos.y - 105) / 63 - ((mousePos.x - 525) / 110));																								// on converti la position Y de la souris en case de mon tableau
 			maj(positionX,positionY);																																														// on indique la case selectionné par le tableau
 			dessiner();																																																				// et on la dessine
 			writeMessage(canvas, message , positionX , positionY);																																// A SUPPRIMER AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
