@@ -35,7 +35,7 @@ var joueur = [
 
 // Point de départ du plateau
 	var PosX = 540;
-	var PosY = 150;
+	var PosY = 100;
 
 // Décalage entre le décor et la tuile
 	var Doffx = 0;
@@ -108,6 +108,9 @@ var joueur = [
         // Chargement effectif des images
         for (var i=0;i<decor_filenames.length;i++) {
             decor_images[i] = new Image();
+			decor_images[i].onload = function() {
+				dessiner();
+			};
             decor_images[i].src = decor_filenames[i];
         }
 
@@ -123,6 +126,9 @@ var joueur = [
         // Chargement effectif des images
         for (var i=0;i<armes_filenames.length;i++) {
             armes_images[i] = new Image();
+			armes_images[i].onload = function() {
+				dessiner();
+			};
             armes_images[i].src = armes_filenames[i];
         }
 		
@@ -132,6 +138,9 @@ var joueur = [
         // Chargement effectif des images
         for (var i=0;i<persos_filenames.length;i++) {
             persos_images[i] = new Image();
+			persos_images[i].onload = function() {
+				dessiner();
+			};
             persos_images[i].src = persos_filenames[i];
         }
 

@@ -176,24 +176,11 @@
 
 		canvas.addEventListener('mousemove', function(evt) {																																		//on declenche cette fonction a chaque mouvement de la souris
 			var mousePos = getMousePos(canvas, evt);																																					// on récupere sa position
-			var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;																											// A SUPPRIMER AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 			positionX = Math.floor((mousePos.y - PosY) / 66 + ((mousePos.x -PosX) / 125));																									// on converti la position X de la souris en case de mon tableau
-			positionY = Math.floor((mousePos.y - 105) / 63 - ((mousePos.x - 525) / 110));																								// on converti la position Y de la souris en case de mon tableau
+			positionY = Math.floor((mousePos.y - 60) / 63 - ((mousePos.x - 525) / 110));																								// on converti la position Y de la souris en case de mon tableau
 			maj(positionX,positionY);																																														// on indique la case selectionné par le tableau
 			dessiner();																																																				// et on la dessine
-			writeMessage(canvas, message , positionX , positionY);																																// A SUPPRIMER AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 			}, false);
-				
-	    function writeMessage(canvas, message, positionX, positionY) {																													// A SUPPRIMER AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-
-        var contexte = canvas.getContext('2d');
-        contexte.clearRect(0, 0, 300, 100);
-        contexte.font = '18pt Calibri';
-        contexte.fillStyle = 'white';
-        contexte.fillText(message, 10, 25);
-		contexte.fillText(positionX, 10,  75);
-		contexte.fillText(positionY, 10, 100);
-      }
 	  
       function getMousePos(canvas, evt) {																																										// fonction qui recuperer et convertie la position de la souris sur le canvas
         var rect = canvas.getBoundingClientRect();
@@ -253,11 +240,21 @@
 		}
 	}
 	
+	function numerojoueur() {
+		if (joueur_actif == 10) {
+			return 1
+		} else {
+			return 2
+		}
+	}
+	
 	function interaction_armes() {
 			alert (joueur[joueur_actif-10].nom+ " a pris l'" + armes[newX][newY]);
 			new_armes= armes[newX][newY];
 			armes[newX][newY] = joueur[joueur_actif-10].arme;
 			joueur[joueur_actif-10].arme = new_armes;
+			lienarme = "./css/interface/" + new_armes +".png";
+			document.getElementById("armej"+numerojoueur()).src = lienarme;			
 	}
 	
 	function loadall() {																																																			// lancement du Jeu

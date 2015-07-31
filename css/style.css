@@ -5,5 +5,27 @@ text-align:center;
 background-color:black;
 }
 
+#cadre1 {
+position:absolute;
+left:20px;
+}
+
+#armej1 {
+position:absolute;
+left:65px;
+top:145px;
+}
+
+#cadre2 {
+position:absolute;
+right:20px;
+}
+
+#armej2 {
+position:absolute;
+right:228px;
+top:145px;
+}
+
 #plateau {
 }
