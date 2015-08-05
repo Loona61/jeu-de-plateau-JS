@@ -41,15 +41,27 @@ var joueur = [
 	var Doffx = 0;
 	var Doffy = -45;
 
-
+// Definition du tableau des armes
+	var armes = new Array();
+// Definition du tableau des décors
+	var decor = new Array();
+// Definition du tableau du sol
+	var plateau = new Array();
+	
 // Images
 	var sol_images = new Array();
 	var persos_images = new Array();
 	var decor_images = new Array();
 	var armes_images = new Array();
+	
+	
+function loadgame() {																																								// fonction qui charge le plateau pour la premiere fois
+
+// reinitialisation du log
+document.getElementById("log").innerHTML = "";
 
 // Création du plateau de jeu
-	var plateau = new Array();
+
 	for (i=0; i<10; i++) {
 		plateau[i] = new Array();
 		for (j=0; j<10;j++) {
@@ -58,7 +70,7 @@ var joueur = [
 	};
 
 // Création du tableau vide du décors
-	var decor = new Array();
+
 	for (i=0; i<10; i++) {
 		decor[i] = new Array();
 		for (j=0; j<10;j++) {
@@ -67,16 +79,14 @@ var joueur = [
 	};
 		
 // Création du tableau vide des armes
-	var armes = new Array();
+
 	for (i=0; i<decor.length; i++) {
 		armes[i] = new Array();
 		for (j=0; j<decor[i].length;j++) {
 			armes[i][j] = 0;
 		};
 	};
-	
-	function loadgame() {																																																		// fonction qui charge le plateau pour la premiere fois
-	
+		
         var sol_filenames = Array(																																														// Définition des images composant le plateau de jeu
 			"css/sol/grass_01.png",
 			"css/sol/grass_02.png",
@@ -144,6 +154,7 @@ var joueur = [
             persos_images[i].src = persos_filenames[i];
         }
 
+			initjeu();
         // Dessin du plateau de jeu de départ et lancement du jeu
         dessiner();
     };

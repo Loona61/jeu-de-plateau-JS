@@ -1,12 +1,13 @@
-// Ajout de facon aleatoire des elements du décor sur le plateau
-	for (i=0; i<nbdecor; i++) {
-		do {
-			var X = aleatoire (0,decor.length);
-			var Y = aleatoire (0,decor.length);
-		} while (decor[X][Y] != 0);
-		
-		decor[X][Y] = aleatoire(1,3);
-	};
+function initjeu() {
+	// Ajout de facon aleatoire des elements du décor sur le plateau
+		for (i=0; i<nbdecor; i++) {
+			do {
+				var X = aleatoire (0,decor.length);
+				var Y = aleatoire (0,decor.length);
+			} while (decor[X][Y] != 0);
+			
+			decor[X][Y] = aleatoire(1,3);
+		};
 	
 	// Ajout de facon aleatoire des persos sur le plateau
 	var nb = 10;
@@ -31,6 +32,8 @@
 	
 	//on genere le chemin possible du perso
 	generation_chemin();
+	
+}
 	
 	function test_proximite(X,Y) {
 		if (X+1 <10 ) {
@@ -236,8 +239,13 @@
 			maj_chemin();																																																			// on genere les chemins possible du nouveau joueur_actif
 			dessiner();																																																				// et on l'affiche
 		} else {
-			alert ("tu n'as pas le droit d'aller ici");																																									// la case selectionnée ne fait pas partie du chemin possible
+			alerte();																																																					// la case selectionnée ne fait pas partie du chemin possible
 		}
+	}
+	
+	function alerte() {
+		document.getElementById("interdit").style.display = "inline";
+		setTimeout("document.getElementById('interdit').style.display = 'none';",1000);
 	}
 	
 	function numerojoueur() {
@@ -249,7 +257,8 @@
 	}
 	
 	function interaction_armes() {
-			alert (joueur[joueur_actif-10].nom+ " a pris l'" + armes[newX][newY]);
+			document.getElementById("log").innerHTML = document.getElementById("log").innerHTML + "<br>" + joueur[joueur_actif-10].nom+ " a pris l'" + armes[newX][newY];
+			document.getElementById("log").scrollTop = document.getElementById("log").scrollHeight;
 			new_armes= armes[newX][newY];
 			armes[newX][newY] = joueur[joueur_actif-10].arme;
 			joueur[joueur_actif-10].arme = new_armes;

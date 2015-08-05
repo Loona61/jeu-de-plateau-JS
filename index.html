@@ -7,16 +7,32 @@
 </head>
 
 <body>
-<img src="./css/interface/cadre001.png" id='cadre1'>
-<img src="./css/interface/arme4.png" id='armej1'>
+
+<div id="j1">
+	<img src="./css/interface/cadre001.png" id='cadre1'>
+	<img src="./css/interface/arme4.png" id='armej1'>
+
+</div>
+
 <canvas id="plateau" width="1200" height="750"></canvas>
-<img src="./css/interface/cadre002.png" id='cadre2'>
-<img src="./css/interface/arme4.png" id='armej2'>
+
+<div id="j2">
+	<img src="./css/interface/cadre002.png" id='cadre2'>
+	<img src="./css/interface/arme4.png" id='armej2'>
+</div>
+
+<div id="menu">
+<img src="./css/interface/cadre003.png" id='cadre3'>
+<button type="button" id="newgame" onclick="loadall()"></button>
+</div>
+
+<div id="log"></div>
+
+<img src="./css/interface/croix.png" id='interdit'>
 
 <script src="./js/aleatoire.js"></script>
 <script src="./js/init.js"></script>
 <script src="./js/terrain.js"></script>
-
 
 </body>
 </html>
