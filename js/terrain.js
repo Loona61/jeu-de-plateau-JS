@@ -37,22 +37,22 @@ function initjeu() {
 	
 	function test_proximite(X,Y) {
 		if (X+1 <10 ) {
-			if (decor[X+1][Y] != decor.length) {
+			if (decor[X+1][Y] != 10) {
 				test1 = true;
 			} else { test1 = false;}
 		} else { test1 = true;}
 		if (X-1 >=0 ) {
-			if (decor[X-1][Y] != decor.length) {
+			if (decor[X-1][Y] != 10) {
 				test2 = true;
 			} else { test2 = false;}
 		} else { test2 = true;}
 		if (Y+1 <10 ) {
-			if (decor[X][Y+1] != decor.length) {
+			if (decor[X][Y+1] != 10) {
 				test3 = true;
 			} else { test3 = false;}
 		} else { test3 = true;}
 		if (Y-1 >=0 ) {
-			if (decor[X][Y-1] != decor.length) {
+			if (decor[X][Y-1] != 10) {
 				test4 = true;
 			} else { test4 = false;}
 		} else { test4 = true;}
@@ -257,13 +257,16 @@ function initjeu() {
 	}
 	
 	function interaction_armes() {
-			document.getElementById("log").innerHTML = document.getElementById("log").innerHTML + "<br>" + joueur[joueur_actif-10].nom+ " a pris l'" + armes[newX][newY];
+			numero_armes = armes[newX][newY].match(/\d+/g);
+			document.getElementById("log").innerHTML = document.getElementById("log").innerHTML + "<br>" + joueur[joueur_actif-10].nom+ " a pris " + armes_info[numero_armes].info;
 			document.getElementById("log").scrollTop = document.getElementById("log").scrollHeight;
 			new_armes= armes[newX][newY];
 			armes[newX][newY] = joueur[joueur_actif-10].arme;
 			joueur[joueur_actif-10].arme = new_armes;
 			lienarme = "./css/interface/" + new_armes +".png";
-			document.getElementById("armej"+numerojoueur()).src = lienarme;			
+			document.getElementById("armej"+numerojoueur()).src = lienarme;
+			document.getElementById("nom_wpj"+numerojoueur()).innerHTML = armes_info[numero_armes].nom;
+			document.getElementById("degat_wpj"+numerojoueur()).innerHTML = armes_info[numero_armes].degat;
 	}
 	
 	function loadall() {																																																			// lancement du Jeu

@@ -22,11 +22,39 @@ var joueur = [
 		defense: false
     },
     {
-		nom: 'Jacky',
+		nom: 'Jacquie',
 		vie: 100,
 		arme: 'arme4',
 		defense: false
     },
+];
+
+var armes_info = [
+    {
+		nom: "Mitraillette",
+        info: "la mitraillette qui fait piou piou",
+		degat: 10
+    },
+	{
+		nom: "Sniper",
+        info: "le sniper qui fais mal",
+		degat: 15
+    },
+	{
+		nom: "Bombe",
+        info: "la bombe qui fait boum",
+		degat: 30
+    },
+	{
+		nom: "Laser",
+        info: "l'arme laser qui reduit tout, oui TOUT",
+		degat: 20
+    },
+    {
+		nom: "mains nues",
+        info: "ces petit poings",
+		degat: 5
+    }
 ];
 	
 // Largeur et hauteur d'un sol
@@ -155,6 +183,20 @@ document.getElementById("log").innerHTML = "";
         }
 
 			initjeu();
+			initjoueur();
         // Dessin du plateau de jeu de départ et lancement du jeu
         dessiner();
     };
+	
+	function initjoueur() {
+		
+		for (i=0; i< joueur.length;i++) {
+		joueur[i].vie = 100;
+		joueur[i].arme = 'arme4';
+		joueur[i].defense= false;
+		document.getElementById("armej"+ (i +1)).src = "./css/interface/arme4.png";
+		document.getElementById("nom_wpj"+ (i +1)).innerHTML = armes_info[5].nom;
+		document.getElementById("degat_wpj"+ (i +1)).innerHTML = armes_info[5].degat;
+		alert("armej"+ (i +1));
+		};
+	}
