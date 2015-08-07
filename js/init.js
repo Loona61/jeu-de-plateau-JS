@@ -19,13 +19,17 @@ var joueur = [
         nom: 'Michel',
         vie: 100,
 		arme: 'arme4',
-		defense: false
+		defense: false,
+		X: '',
+		Y: ''
     },
     {
 		nom: 'Jacquie',
 		vie: 100,
 		arme: 'arme4',
-		defense: false
+		defense: false,
+		X: '',
+		Y: ''
     },
 ];
 
@@ -195,8 +199,8 @@ document.getElementById("log").innerHTML = "";
 		joueur[i].arme = 'arme4';
 		joueur[i].defense= false;
 		document.getElementById("armej"+ (i +1)).src = "./css/interface/arme4.png";
-		document.getElementById("nom_wpj"+ (i +1)).innerHTML = armes_info[5].nom;
-		document.getElementById("degat_wpj"+ (i +1)).innerHTML = armes_info[5].degat;
-		alert("armej"+ (i +1));
+		document.getElementById("viej"+ (i +1)).innerHTML = 100;
+		document.getElementById("nom_wpj"+ (i +1)).innerHTML = armes_info[4].nom;
+		document.getElementById("degat_wpj"+ (i +1)).innerHTML = armes_info[4].degat;
 		};
 	}

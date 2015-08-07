@@ -15,9 +15,10 @@ function initjeu() {
 		do {
 			var X = aleatoire (0,decor.length);
 			var Y = aleatoire (0,decor.length);
-			test_proximite(X,Y);
-		} while (decor[X][Y] != 0 && test_proximite() === true);
+		} while (decor[X][Y] != 0 || test_proximite(X,Y) != true);
 		decor[X][Y] = nb+h;
+		joueur[(nb+h)-10].X = X;
+		joueur[(nb+h)-10].Y = Y;
 	};
 	
 	// Ajout de facon aleatoire sur le plateau des armes
@@ -37,22 +38,22 @@ function initjeu() {
 	
 	function test_proximite(X,Y) {
 		if (X+1 <10 ) {
-			if (decor[X+1][Y] != 10) {
+			if (decor[X+1][Y] != joueur_actif) {
 				test1 = true;
 			} else { test1 = false;}
 		} else { test1 = true;}
 		if (X-1 >=0 ) {
-			if (decor[X-1][Y] != 10) {
+			if (decor[X-1][Y] != joueur_actif) {
 				test2 = true;
 			} else { test2 = false;}
 		} else { test2 = true;}
 		if (Y+1 <10 ) {
-			if (decor[X][Y+1] != 10) {
+			if (decor[X][Y+1] != joueur_actif) {
 				test3 = true;
 			} else { test3 = false;}
 		} else { test3 = true;}
 		if (Y-1 >=0 ) {
-			if (decor[X][Y-1] != 10) {
+			if (decor[X][Y-1] != joueur_actif) {
 				test4 = true;
 			} else { test4 = false;}
 		} else { test4 = true;}
@@ -220,14 +221,10 @@ function initjeu() {
 		
 	function mouvementJoueur() {																																														//fonction qui met a jour la position du Joueur
 		if (decor[newX][newY] == 14) {																																													// Si le deplacement sur la case est autorisé et que la souris l'a selectionné (14)
-			for (i=0;i<decor.length;i++) {
-				for (j=0;j<decor[i].length;j++) {
-					if (decor[i][j] == joueur_actif) {																																													// on cherche la position actuelle du joueur_actif
-						decor[i][j] = 0;																																																// et on la supprime
-					}
-				}
-			}
+			decor[joueur[joueur_actif-10].X][joueur[joueur_actif-10].Y] = 0;
 			decor[newX][newY] = joueur_actif;																																												// on ajoute la nouvelle position du joueur_actif
+			joueur[joueur_actif-10].X = newX;
+			joueur[joueur_actif-10].Y = newY;
 			if  (armes[newX][newY] != 0) {
 			interaction_armes();
 			}
@@ -267,6 +264,28 @@ function initjeu() {
 			document.getElementById("armej"+numerojoueur()).src = lienarme;
 			document.getElementById("nom_wpj"+numerojoueur()).innerHTML = armes_info[numero_armes].nom;
 			document.getElementById("degat_wpj"+numerojoueur()).innerHTML = armes_info[numero_armes].degat;
+	}
+	
+	function interaction_joueur() {
+		if (joueur_actif == 10) { ennemie = 1} else { ennemie = 0};
+		if (test_proximite(joueur[ennemie].X,joueur[ennemie].Y) == false) {
+			numero_armes =  joueur[joueur_actif-10].arme.match(/\d+/g);
+			joueur[ennemie].vie = joueur[ennemie].vie - armes_info[numero_armes].degat
+			document.getElementById("viej"+ (ennemie+1)).innerHTML = joueur[ennemie].vie
+			if (joueur[ennemie].vie <= 0) {
+				alert("fin de la partie ! " + joueur[joueur_actif-10].nom + " a ecrasé " + joueur[ennemie].nom );
+			} else {
+				if (joueur_actif ==10) {																																																		// puis on change de tour et passe la main a l'autre joueur_actif
+					joueur_actif = 11;
+				} else {
+					joueur_actif = 10;
+				}
+				maj_chemin();																																																			// on genere les chemins possible du nouveau joueur_actif
+				dessiner();
+			}
+		} else {
+			alert("Dylan bordel ta rien compris au jeu");
+		}
 	}
 	
 	function loadall() {																																																			// lancement du Jeu

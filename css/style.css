@@ -116,6 +116,17 @@ color:white;
 overflow:auto;
 }
 
+#attaque {
+position:absolute;
+width:100px;
+height:100px;
+left:48px;
+top: 50px;
+background-color: transparent;
+border: none;
+outline:none;
+}
+
 #newgame {
 position:absolute;
 width:116px;
