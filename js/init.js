@@ -62,12 +62,12 @@ var armes_info = [
 ];
 	
 // Largeur et hauteur d'un sol
-	var H = 120;
-	var W = 81;
+	var H = 96;
+	var W = 64.8;
 
 // Point de départ du plateau
-	var PosX = 540;
-	var PosY = 100;
+	var PosX = 432;
+	var PosY = 80;
 
 // Décalage entre le décor et la tuile
 	var Doffx = 0;
@@ -202,5 +202,7 @@ document.getElementById("log").innerHTML = "";
 		document.getElementById("viej"+ (i +1)).innerHTML = 100;
 		document.getElementById("nom_wpj"+ (i +1)).innerHTML = armes_info[4].nom;
 		document.getElementById("degat_wpj"+ (i +1)).innerHTML = armes_info[4].degat;
+		document.getElementById('defj1').style.display = 'none';
+		document.getElementById('defj2').style.display = 'none';
 		};
 	}

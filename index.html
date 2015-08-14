@@ -7,7 +7,7 @@
 </head>
 
 <body>
-<canvas id="plateau" width="1200" height="750"></canvas>
+<canvas id="plateau" width="960" height="600"></canvas>
 
 <div id="j1">
 	<img src="./css/interface/cadre001.png" id='cadre1'>
@@ -28,6 +28,7 @@
 		<div id="nom_wpj1">Mains nues</div>
 		<div id="degat_wpj1">5</div>
 	</div>
+	<img src="./css/interface/def.png" id='defj1'>
 </div>
 
 <div id="j2">
@@ -49,11 +50,13 @@
 		<div id="nom_wpj2">Mains nues</div>
 		<div id="degat_wpj2">5</div>
 	</div>
+	<img src="./css/interface/def.png" id='defj2'>
 </div>
 
 <div id="menu">
 <img src="./css/interface/cadre003.png" id='cadre3'>
 <button type="button" id="attaque" onclick="interaction_joueur()"></button>
+<button type="button" id="defense" onclick="activedef()"></button>
 <button type="button" id="newgame" onclick="loadall()"></button>
 </div>
 

@@ -139,11 +139,11 @@ function initjeu() {
 
 	
     function dessiner() {																																																		// on dessine ou redessine tout le plateau
-        contexte.clearRect(0, 0, 1200, 900)																																											// on nettoie complete le canvas
+        contexte.clearRect(0, 0, 960, 600)																																											// on nettoie complete le canvas
 
         for (i=0;i<plateau.length;i++) {
             for (j=0;j<plateau[i].length;j++) {
-                contexte.drawImage( sol_images[plateau[i][j]] , (i-j)*H/2+PosX , (i+j)*63/2+PosY , H , W  );																				// on dessine tout le sol du plateau de jeu
+                contexte.drawImage( sol_images[plateau[i][j]] , (i-j)*H/2+PosX , (i+j)*50.4/2+PosY , H , W  );																				// on dessine tout le sol du plateau de jeu
             }
         }
 
@@ -151,27 +151,27 @@ function initjeu() {
         for (i=0;i<decor.length;i++) {
             for (j=0;j<decor[i].length;j++) {
                 if (decor[i][j] == 1 || decor[i][j] == 2) {																																									// Si un décor est placé sur cette case alors on le dessine
-                    contexte.drawImage( decor_images[decor[i][j]-1] , (i-j)*H/2+PosX+Doffx , (i+j)*63/2+PosY+Doffy , H , 96 );
+                    contexte.drawImage( decor_images[decor[i][j]-1] , (i-j)*H/2+PosX+Doffx , (i+j)*50.4/2+PosY+Doffy , H , 76.8 );
                 }
 				if (decor[i][j] == 12) {																																															// Si on peut se deplacer sur cette case alors on le dessine en surbrillance grise
-                    contexte.drawImage( decor_images[4] , (i-j)*H/2+PosX , (i+j)*63/2+PosY , H , W);
+                    contexte.drawImage( decor_images[4] , (i-j)*H/2+PosX , (i+j)*50.4/2+PosY , H , W);
                 }
 				if (decor[i][j] == 14 && joueur_actif == 10 ) {																																					// Si on est le Joueur1 et qu'on peut se deplacer sur cette case et que la souris est dessus alors on le dessine en surbrillance bleu
-                    contexte.drawImage( decor_images[2] , (i-j)*H/2+PosX , (i+j)*63/2+PosY , H , W);
+                    contexte.drawImage( decor_images[2] , (i-j)*H/2+PosX , (i+j)*50.4/2+PosY , H , W);
                 }	
 				if (decor[i][j] == 14 && joueur_actif == 11) {																																					// Si on est le Joueur2 et qu'on peut se deplacer sur cette case et que la souris est dessus alors on le dessine en surbrillance rouge
-					contexte.drawImage( decor_images[3] , (i-j)*H/2+PosX , (i+j)*63/2+PosY , H , W);
+					contexte.drawImage( decor_images[3] , (i-j)*H/2+PosX , (i+j)*50.4/2+PosY , H , W);
 				}
 				if (decor[i][j] == 10) {																																															// Si il y a le Joueur1 sur cette case alors on le dessine
-                    contexte.drawImage( persos_images[1] , (i-j)*H/2+PosX+0 , (i+j)*63/2+PosY-90 , H , 139.5 );
+                    contexte.drawImage( persos_images[1] , (i-j)*H/2+PosX+0 , (i+j)*50.4/2+PosY-72 , H , 111.6 );
                 }
 				if (decor[i][j] == 11) {																																															// Si il y a le Joueur2 sur cette case alors on le dessine
-                    contexte.drawImage( persos_images[0] , (i-j)*H/2+PosX+0 , (i+j)*63/2+PosY-90 , H , 139.5 );
+                    contexte.drawImage( persos_images[0] , (i-j)*H/2+PosX+0 , (i+j)*50.4/2+PosY-72 , H , 111.6 );
                 }
 				for (z=0;z<armes_images.length;z++){																																							// test pour trouver n'importe quel armes
 					if (armes[i][j] == "arme" + z  && (decor[i][j] == 0 || decor[i][j] == 12 || decor[i][j] == 14)) {																		// Si une arme est placée sur cette case alors on le dessine sauf si il y a un perso dessus
                    armes_numero = armes[i][j].match(/\d+/g);
-				   contexte.drawImage( armes_images[armes_numero] , (i-j)*H/2+PosX+Doffx , (i+j)*63/2+PosY+Doffy , H , 96 );
+				   contexte.drawImage( armes_images[armes_numero] , (i-j)*H/2+PosX+Doffx , (i+j)*50.4/2+PosY+Doffy , H , 76.8 );
 					}
 				}
             }
@@ -180,8 +180,8 @@ function initjeu() {
 
 		canvas.addEventListener('mousemove', function(evt) {																																		//on declenche cette fonction a chaque mouvement de la souris
 			var mousePos = getMousePos(canvas, evt);																																					// on récupere sa position
-			positionX = Math.floor((mousePos.y - PosY) / 66 + ((mousePos.x -PosX) / 125));																									// on converti la position X de la souris en case de mon tableau
-			positionY = Math.floor((mousePos.y - 60) / 63 - ((mousePos.x - 525) / 110));																								// on converti la position Y de la souris en case de mon tableau
+			positionX = Math.floor((mousePos.y - PosY) /52.8 + ((mousePos.x -PosX) / 100));																									// on converti la position X de la souris en case de mon tableau
+			positionY = Math.floor((mousePos.y - 48) / 50.4 - ((mousePos.x - 420) / 88));																								// on converti la position Y de la souris en case de mon tableau
 			maj(positionX,positionY);																																														// on indique la case selectionné par le tableau
 			dessiner();																																																				// et on la dessine
 			}, false);
@@ -228,6 +228,8 @@ function initjeu() {
 			if  (armes[newX][newY] != 0) {
 			interaction_armes();
 			}
+			joueur[joueur_actif-10].defense = false;
+			document.getElementById('defj' + (joueur_actif-9)).style.display = 'none';
 			if (joueur_actif ==10) {																																																		// puis on change de tour et passe la main a l'autre joueur_actif
 				joueur_actif = 11;
 			} else {
@@ -269,11 +271,22 @@ function initjeu() {
 	function interaction_joueur() {
 		if (joueur_actif == 10) { ennemie = 1} else { ennemie = 0};
 		if (test_proximite(joueur[ennemie].X,joueur[ennemie].Y) == false) {
+			joueur[joueur_actif-10].defense = false;
+			document.getElementById('defj' + (joueur_actif-9)).style.display = 'none';
 			numero_armes =  joueur[joueur_actif-10].arme.match(/\d+/g);
-			joueur[ennemie].vie = joueur[ennemie].vie - armes_info[numero_armes].degat
+			if (joueur[ennemie].defense == true) {
+				joueur[ennemie].vie = joueur[ennemie].vie - (armes_info[numero_armes].degat / 2)
+				document.getElementById("log").innerHTML = document.getElementById("log").innerHTML + "<br>" + joueur[ennemie].nom+ " a pris " + (armes_info[numero_armes].degat / 2) + " de degats";
+			} else {
+				joueur[ennemie].vie = joueur[ennemie].vie - armes_info[numero_armes].degat	
+				document.getElementById("log").innerHTML = document.getElementById("log").innerHTML + "<br>" + joueur[ennemie].nom+ " a pris " + armes_info[numero_armes].degat + " de degats";
+			}
+			if (joueur[ennemie].vie < 0) { joueur[ennemie].vie = 0}
 			document.getElementById("viej"+ (ennemie+1)).innerHTML = joueur[ennemie].vie
 			if (joueur[ennemie].vie <= 0) {
 				alert("fin de la partie ! " + joueur[joueur_actif-10].nom + " a ecrasé " + joueur[ennemie].nom );
+				document.getElementById('attaque').disabled = 'disabled';
+				document.getElementById('defense').disabled = 'disabled';
 			} else {
 				if (joueur_actif ==10) {																																																		// puis on change de tour et passe la main a l'autre joueur_actif
 					joueur_actif = 11;
@@ -284,8 +297,22 @@ function initjeu() {
 				dessiner();
 			}
 		} else {
-			alert("Dylan bordel ta rien compris au jeu");
+			alert("vous devez etre a cote de l'autre joueur");
 		}
+	}
+	
+	function activedef() {
+		if (joueur_actif == 10) {
+			joueur[0].defense = true;
+			document.getElementById('defj1').style.display = 'inline';
+			joueur_actif = 11;
+		} else {
+			joueur[1].defense = true;
+			document.getElementById('defj2').style.display = 'inline';
+			joueur_actif = 10;
+		}
+		maj_chemin();																																																			// on genere les chemins possible du nouveau joueur_actif
+		dessiner();
 	}
 	
 	function loadall() {																																																			// lancement du Jeu
