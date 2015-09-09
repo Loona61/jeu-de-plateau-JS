@@ -141,11 +141,11 @@ function initjeu() {
     function dessiner() {																																																		// on dessine ou redessine tout le plateau
         contexte.clearRect(0, 0, 960, 600)																																											// on nettoie complete le canvas
 
-        for (i=0;i<plateau.length;i++) {
+ /*        for (i=0;i<plateau.length;i++) {
             for (j=0;j<plateau[i].length;j++) {
                 contexte.drawImage( sol_images[plateau[i][j]] , (i-j)*H/2+PosX , (i+j)*50.4/2+PosY , H , W  );																				// on dessine tout le sol du plateau de jeu
             }
-        }
+        } */
 
         // Dessin des décors et persos
         for (i=0;i<decor.length;i++) {
@@ -171,7 +171,7 @@ function initjeu() {
 				for (z=0;z<armes_images.length;z++){																																							// test pour trouver n'importe quel armes
 					if (armes[i][j] == "arme" + z  && (decor[i][j] == 0 || decor[i][j] == 12 || decor[i][j] == 14)) {																		// Si une arme est placée sur cette case alors on le dessine sauf si il y a un perso dessus
                    armes_numero = armes[i][j].match(/\d+/g);
-				   contexte.drawImage( armes_images[armes_numero] , (i-j)*H/2+PosX+Doffx , (i+j)*50.4/2+PosY+Doffy , H , 76.8 );
+				   contexte.drawImage( armes_images[armes_numero] , (i-j)*H/2+PosX+Doffx , (i+j)*50.4/2+PosY-40 , H , 76.8 );
 					}
 				}
             }
@@ -257,7 +257,7 @@ function initjeu() {
 	
 	function interaction_armes() {
 			numero_armes = armes[newX][newY].match(/\d+/g);
-			document.getElementById("log").innerHTML = document.getElementById("log").innerHTML + "<br>" + joueur[joueur_actif-10].nom+ " a pris " + armes_info[numero_armes].info;
+			document.getElementById("log").innerHTML = document.getElementById("log").innerHTML + "<br> <span style='color:red'>" + joueur[joueur_actif-10].nom+ "</span> a pris <span style='color:red'>" + armes_info[numero_armes].info + "</span>";
 			document.getElementById("log").scrollTop = document.getElementById("log").scrollHeight;
 			new_armes= armes[newX][newY];
 			armes[newX][newY] = joueur[joueur_actif-10].arme;
@@ -276,17 +276,19 @@ function initjeu() {
 			numero_armes =  joueur[joueur_actif-10].arme.match(/\d+/g);
 			if (joueur[ennemie].defense == true) {
 				joueur[ennemie].vie = joueur[ennemie].vie - (armes_info[numero_armes].degat / 2)
-				document.getElementById("log").innerHTML = document.getElementById("log").innerHTML + "<br>" + joueur[ennemie].nom+ " a pris " + (armes_info[numero_armes].degat / 2) + " de degats";
+				document.getElementById("log").innerHTML = document.getElementById("log").innerHTML + "<br> <span style='color:red'>" + joueur[ennemie].nom+ "</span>a pris <span style='color:red'>" + (armes_info[numero_armes].degat / 2) + "</span> de degats";
+				document.getElementById("log").scrollTop = document.getElementById("log").scrollHeight;
 			} else {
 				joueur[ennemie].vie = joueur[ennemie].vie - armes_info[numero_armes].degat	
-				document.getElementById("log").innerHTML = document.getElementById("log").innerHTML + "<br>" + joueur[ennemie].nom+ " a pris " + armes_info[numero_armes].degat + " de degats";
+				document.getElementById("log").innerHTML = document.getElementById("log").innerHTML + "<br> <span style='color:red'>" + joueur[ennemie].nom+ "</span> a pris <span style='color:red'>" + armes_info[numero_armes].degat + "</span> de degats";
+				document.getElementById("log").scrollTop = document.getElementById("log").scrollHeight;
 			}
 			if (joueur[ennemie].vie < 0) { joueur[ennemie].vie = 0}
 			document.getElementById("viej"+ (ennemie+1)).innerHTML = joueur[ennemie].vie
 			if (joueur[ennemie].vie <= 0) {
 				alert("fin de la partie ! " + joueur[joueur_actif-10].nom + " a ecrasé " + joueur[ennemie].nom );
-				document.getElementById('attaque').disabled = 'disabled';
-				document.getElementById('defense').disabled = 'disabled';
+				document.getElementById('attaque').disabled = true;
+				document.getElementById('defense').disabled = true;
 			} else {
 				if (joueur_actif ==10) {																																																		// puis on change de tour et passe la main a l'autre joueur_actif
 					joueur_actif = 11;

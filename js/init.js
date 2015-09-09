@@ -71,7 +71,7 @@ var armes_info = [
 
 // Décalage entre le décor et la tuile
 	var Doffx = 0;
-	var Doffy = -45;
+	var Doffy = -25;
 
 // Definition du tableau des armes
 	var armes = new Array();
@@ -204,5 +204,7 @@ document.getElementById("log").innerHTML = "";
 		document.getElementById("degat_wpj"+ (i +1)).innerHTML = armes_info[4].degat;
 		document.getElementById('defj1').style.display = 'none';
 		document.getElementById('defj2').style.display = 'none';
+		document.getElementById('attaque').disabled = false;
+		document.getElementById('defense').disabled = false;
 		};
 	}
